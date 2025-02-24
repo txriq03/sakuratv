@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body
-          className={`${quicksand.variable} bg-slate-200 text-gray-50 font-sans antialiased`}
+          className={`${quicksand.variable} bg-[#edf1f5] text-gray-50 font-sans antialiased`}
         >
           <Topbar />
           <main>

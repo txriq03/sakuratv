@@ -7,7 +7,7 @@ interface Props {
 
 const CardList = ({ name, data}: Props) => {
   return (
-    <div className="bg-white w-full rounded-md shadow-lg lg:flex-[40%] md:flex-[40%] xl:flex-[10%]">
+    <div className="bg-white w-full rounded-md lg:flex-[40%] md:flex-[40%] xl:flex-[10%]">
         <div className="mx-2">
             <h2 className="font-semibold text-slate-600 my-2">{name}</h2>
             

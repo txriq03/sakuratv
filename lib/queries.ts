@@ -80,7 +80,18 @@ export const getAnimeInfo: any = async (animeId: string) => {
     }
 }
 
-
+export const getAnimeEpisodes: any = async (animeId: string) => {
+    const url = process.env.NEXT_PUBLIC_API_URL + "/api/v2/hianime/anime/" + animeId + "/episodes";
+    try {
+        const { data } = await axios.get(url);
+        console.log(data);
+        return data;
+    } catch (err) {
+        if (err instanceof Error) {
+            throw new Error(err.message);
+        }
+    }
+}
 
 // export const getHomeScreen: any = async () => {
 //     try {
