@@ -1,12 +1,13 @@
 "use client";
 import { useParams, useSearchParams, useRouter, usePathname } from "next/navigation";
 import { ScrollArea } from "../ui/scroll-area";
-import { MediaPlayer, MediaProvider } from "@vidstack/react";
+import { MediaPlayer, MediaProvider, Track} from "@vidstack/react";
 import { useQuery } from "@tanstack/react-query";
 import { getAnimeEpisodes, getAnimeInfo, getEpisodeStreamingLink } from "@/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const WatchAnimeWrapper = () => {
     const router = useRouter();
@@ -41,7 +42,9 @@ const WatchAnimeWrapper = () => {
       queryKey: ["episodeData", episodeId],
       queryFn: () => getEpisodeStreamingLink(episodeId)
     })
-    
+   
+
+
     if (isError) {
       console.log("Error:", error)
     } else if (animeData) {
@@ -60,9 +63,9 @@ const WatchAnimeWrapper = () => {
     const streamingLink = episodeData?.sources[0].url
     console.log("streaming link:", streamingLink)
     
-    useEffect(() => {
-      setStreamLink(episodeData?.sources[0].url)
-    }, [episodeData])
+    const vttLink = episodeData?.tracks[0].file
+
+  
 
     return (
       <div className="text-slate-800 m-5">
@@ -94,15 +97,17 @@ const WatchAnimeWrapper = () => {
         </ScrollArea>
 
         <MediaPlayer
-        controls
-        hideControlsOnMouseLeave
+          controls
+          hideControlsOnMouseLeave
+          load="eager"
 
-          title="Anime Episode"
+          title={"Episode"}
           aspectRatio="16/9"
           className="object-contain"
           src={episodeData?.sources[0].url}
         >
           <MediaProvider/>
+          <Track src={`http://localhost:3000/api/vtt?vttUrl=${episodeData?.tracks[0].file}`} kind="subtitles" label="English" lang="en-US" type="vtt" default />
         </MediaPlayer>
 
       {/* Anime information on right side */}
