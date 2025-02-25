@@ -41,6 +41,19 @@ export const getStreamingLinks: any = async () => {
     }
 }
 
+export const getEpisodeStreamingLink = async (episodeId: any) => {
+    const url =  process.env.NEXT_PUBLIC_API_URL + "/api/v2/hianime/episode/sources?animeEpisodeId=" + episodeId;
+    try {
+        const { data: { data: episodeData } } = await axios.get(url);
+        console.log(episodeData);
+        return episodeData;
+    } catch (err) {
+        if (err instanceof Error){
+            throw new Error(err.message);
+        }
+    }
+}
+
 // export const getSpotlightAnime: any = async () => {
 //     const url =  process.env.NEXT_PUBLIC_API_URL + "/v2/hianime/home";
 //     try {

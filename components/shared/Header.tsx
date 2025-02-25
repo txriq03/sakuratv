@@ -28,7 +28,7 @@ const Header = () => {
       {/* Image and buttons */}
       <div className="flex flex-col gap-2">
         
-        <div className="w-[220px] h-[311px] bg-red-500">
+        <div className="w-[220px] h-[311px] ">
           <Image className="w-full h-auto rounded-md shadow-2xl " priority src={animeData?.poster} height={250} width={353} alt={animeData?.name}/>
         </div>
 

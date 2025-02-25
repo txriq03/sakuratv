@@ -11,7 +11,7 @@ const ContentWrapper = () => {
 
   return (
     <InfoContextProvider animeId={animeId}>
-      <div className="bg-slate-100">
+      <div className="bg-slate-50">
         <Header/>
       </div>
     </InfoContextProvider>

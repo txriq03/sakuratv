@@ -7,7 +7,7 @@ import { createContext, ReactNode } from 'react';
 
 export const InfoContext = createContext<any>(undefined);
 
-const InfoContextProvider = ({ children, animeId}: {children: ReactNode, animeId: string | string[] }) => {
+const InfoContextProvider = ({ children, animeId}: {children: ReactNode, animeId: string | string[] | undefined}) => {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["animeInfo"],
         queryFn: () => getAnimeInfo(animeId)

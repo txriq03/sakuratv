@@ -15,7 +15,7 @@ const Topbar = () => {
         </Link>
 
         {/* Search input */}
-        <Input placeholder='Search anime...' className='w-[35%] hidden sm:flex shadow-sm hover:shadow-md bg-zinc-500 bg-opacity-20 py-5 border-none placeholder-zinc-400 hover:bg-zinc-500 hover:bg-opacity-35 text-white placeholder:font-semibold'/>
+        {/* <Input placeholder='Search anime...' className='w-[35%] hidden sm:flex shadow-sm hover:shadow-md bg-zinc-500 bg-opacity-20 py-5 border-none placeholder-zinc-400 hover:bg-zinc-500 hover:bg-opacity-35 text-white placeholder:font-semibold'/> */}
 
         {/* Buttons */}
         <Link href='/login'>
