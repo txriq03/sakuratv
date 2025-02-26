@@ -17,7 +17,6 @@ const WatchAnimeWrapper = () => {
     const searchParams = useSearchParams();
     const episodeNum = searchParams.get('ep');
     const episodeId = animeId + "?ep=" + episodeNum;
-    const [streamLink, setStreamLink] = useState('')
 
     
     // Funciton handles alternating colors in episode list
@@ -43,7 +42,14 @@ const WatchAnimeWrapper = () => {
       queryFn: () => getEpisodeStreamingLink(episodeId)
     })
    
-
+    function getEnglishFile(subtitles: any): string | null | undefined {
+      if (subtitles) {
+        const englishSubtitle = subtitles.find((subtitle: any) => subtitle.label.toLowerCase() === 'english');
+        console.log("All subtitles:", subtitles)
+        console.log("English Subtitles:", englishSubtitle)
+        return englishSubtitle ? englishSubtitle.file : null;        
+      }
+    }
 
     if (isError) {
       console.log("Error:", error)
@@ -107,7 +113,7 @@ const WatchAnimeWrapper = () => {
           src={episodeData?.sources[0].url}
         >
           <MediaProvider/>
-          <Track src={`${window.location.origin}/api/vtt?vttUrl=${episodeData?.tracks[0].file}`} kind="subtitles" label="English" lang="en-US" type="vtt" default />
+          <Track src={`${window.location.origin}/api/vtt?vttUrl=${getEnglishFile(episodeData?.tracks)}`} kind="subtitles" label="English" lang="en-US" type="vtt" default />
         </MediaPlayer>
 
       {/* Anime information on right side */}
