@@ -107,7 +107,7 @@ const WatchAnimeWrapper = () => {
           src={episodeData?.sources[0].url}
         >
           <MediaProvider/>
-          <Track src={`http://localhost:3000/api/vtt?vttUrl=${episodeData?.tracks[0].file}`} kind="subtitles" label="English" lang="en-US" type="vtt" default />
+          <Track src={`${window.location.origin}/api/vtt?vttUrl=${episodeData?.tracks[0].file}`} kind="subtitles" label="English" lang="en-US" type="vtt" default />
         </MediaPlayer>
 
       {/* Anime information on right side */}
