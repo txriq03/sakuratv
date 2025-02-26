@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Button } from "../ui/button";
 
 const WatchAnimeWrapper = () => {
     const router = useRouter();
@@ -42,11 +43,9 @@ const WatchAnimeWrapper = () => {
       queryFn: () => getEpisodeStreamingLink(episodeId)
     })
    
-    function getEnglishFile(subtitles: any): string | null | undefined {
+    function getEnglishFile(subtitles: any): string | undefined {
       if (subtitles) {
         const englishSubtitle = subtitles.find((subtitle: any) => subtitle.label.toLowerCase() === 'english');
-        console.log("All subtitles:", subtitles)
-        console.log("English Subtitles:", englishSubtitle)
         return englishSubtitle ? englishSubtitle.file : null;        
       }
     }
@@ -67,12 +66,14 @@ const WatchAnimeWrapper = () => {
       
     }
     const streamingLink = episodeData?.sources[0].url
-    console.log("streaming link:", streamingLink)
-    
-    const vttLink = episodeData?.tracks[0].file
+    if (streamingLink) {
+      console.log("Streaming link:", streamingLink)
+    }
 
+    if (episodeData?.sources) {
+      console.log("Sources:", episodeData?.sources)
+    }
   
-
     return (
       <div className="text-slate-800 m-5">
       <div className="flex gap-2 my-2">
@@ -88,7 +89,7 @@ const WatchAnimeWrapper = () => {
       </div>
 
       <div className="text-slate-800 flex gap-2 ">
-        <ScrollArea className="  bg-slate-100 rounded-md w-[450px]">
+        <ScrollArea className="  bg-slate-100 rounded-md w-[450px] min-w-[200px]">
           <p className="px-4 text-lg text-slate-200 bg-pink-600 py-1 font-semibold">Episodes</p>
             {isEpisodesLoading ? (
                 <p>Loading...</p>
@@ -106,10 +107,9 @@ const WatchAnimeWrapper = () => {
           controls
           hideControlsOnMouseLeave
           load="eager"
-
           title={"Episode"}
           aspectRatio="16/9"
-          className="object-contain"
+          className="h-full"
           src={episodeData?.sources[0].url}
         >
           <MediaProvider/>
@@ -121,10 +121,17 @@ const WatchAnimeWrapper = () => {
         <p>Loading...</p>
       ) : (
         <div className="w-[700px] px-5">
-          
           <Image src={animeInfo.poster} alt={animeInfo.name} height={200} width={200} />
-          <h1>{animeInfo.name}</h1>
-          <p>{animeInfo.description}</p>
+          <h1 className="py-2 text-xl font-semibold">{animeInfo.name}</h1>
+
+          <ScrollArea className="h-[75px] w-full">
+            <p>{animeInfo.description}</p>
+          </ScrollArea>
+
+          <Button className="my-2 bg-blue-500 hover:bg-blue-600">
+            Details
+          </Button>
+
         </div>
       )}
 
