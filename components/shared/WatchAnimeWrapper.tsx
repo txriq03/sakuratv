@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useEffect } from "react";
+import Episodelist from "./Episodelist";
+import AnimeWatchInfo from "./AnimeWatchInfo";
 
 const WatchAnimeWrapper = () => {
     const router = useRouter();
@@ -17,16 +19,6 @@ const WatchAnimeWrapper = () => {
     const episodeNum = searchParams.get('ep');
     const episodeId = animeId + "?ep=" + episodeNum;
 
-    
-    // Funciton handles alternating colors in episode list
-    const alternateColor = (index: number) => {
-      if (index == 1 || index % 2 == 1) {
-        return "bg-slate-200"
-      } else if (index % 2 == 0) {
-        return "bg-slate-100"
-      }
-    }
-    
     // List of three queries
     const { data: episodesData, isLoading: isEpisodesLoading } = useQuery({
       queryKey: ["episodeList", animeId],
@@ -81,7 +73,7 @@ const WatchAnimeWrapper = () => {
 
     return (
       <div className="text-slate-800 mx-auto max-w-[1760px] px-5">
-        <div className="flex gap-2 my-2">
+        <div className="flex gap-2 my-4">
           <Link href="/" className="hover:text-pink-600">Home</Link>
           <p>•</p>
           <Link href="#" className="hover:text-pink-600">TV</Link>
@@ -94,28 +86,14 @@ const WatchAnimeWrapper = () => {
         </div>
 
       <div className="text-slate-800 flex gap-2 ">
-        <div className="flex flex-col rounded-md w-[450px] min-w-[280px] h-[500px]">
-          <p className="px-4 text-lg text-slate-200 bg-pink-600 py-1 font-semibold">Episodes</p>
-          <ScrollArea className="  bg-slate-100 ">
-              {isEpisodesLoading ? (
-                  <p>Loading...</p>
-              ) : (
-                  episodeList.map((episode: any, index: any) => (
-                      <Link href={`/watch/${episode.episodeId}`} key={index} className={`flex gap-5 py-1 px-4 cursor-pointer ${alternateColor(index)} hover:bg-pink-100 transition-colors`}>
-                          <p>{index + 1}</p>
-                          <p>{episode.title}</p>
-                      </Link>
-                  ))
-              )}
-          </ScrollArea>
 
-        </div>
-        
+        <Episodelist episodeList={episodeList ? episodeList : ''} />
+
         <MediaPlayer
           controls
           hideControlsOnMouseLeave
           load="eager"
-          title={''}
+          title={animeInfo ? animeInfo.title :  ''}
           aspectRatio="16/9"
           className="h-full"
           src={episodeData?.sources[0].url}
@@ -124,7 +102,7 @@ const WatchAnimeWrapper = () => {
           <Track src={`${window.location.origin}/api/vtt?vttUrl=${getEnglishFile(episodeData?.tracks)}`} kind="subtitles" label="English" lang="en-US" type="vtt" default />
         </MediaPlayer>
 
-      {/* Anime information on right side */}
+      {/* Anime information on right side
       {isInfoLoading ? (
         <p>Loading...</p>
       ) : (
@@ -141,9 +119,10 @@ const WatchAnimeWrapper = () => {
               Details
             </Button>
           </Link>
-
         </div>
-      )}
+      )} */}
+
+      <AnimeWatchInfo isInfoLoading={isInfoLoading} animeInfo={animeInfo} animeId={animeId} />
 
       </div>
 
