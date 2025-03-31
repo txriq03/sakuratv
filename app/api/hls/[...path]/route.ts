@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: { path: Record<string, any> } }
 ) {
   try {
-    let originalUrl = await params.path.join("/");
+    let originalUrl = params.path.join("/");
     if (
       originalUrl.startsWith("https:/") &&
       !originalUrl.startsWith("https://")
