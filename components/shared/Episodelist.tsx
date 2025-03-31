@@ -14,9 +14,9 @@ const Episodelist = ({episodeList}: any) => {
       }
 
   return (
-    <div className="flex flex-col rounded-md w-[450px] min-w-[280px] h-[500px]">
+    <div className=" rounded-md">
           <p className="px-4 text-lg text-slate-200 bg-pink-600 py-1 font-semibold">Episodes</p>
-          <ScrollArea className="  bg-slate-100 ">
+          <ScrollArea className="  bg-slate-100 h-[550px]">
               {episodeList == '' ? (
                   <p>Loading...</p>
               ) : (

@@ -10,7 +10,7 @@ const AnimeWatchInfo = ({ isInfoLoading, animeInfo, animeId }: any) => {
       {isInfoLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-[700px] px-5">
+        <div className="px-5 ">
           <Image
             src={animeInfo.poster}
             alt={animeInfo.name}
